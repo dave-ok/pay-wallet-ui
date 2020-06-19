@@ -26,7 +26,7 @@ app.get("/providers", async (req, res) => {
   }
   try {
     const response = await request.post(options).auth(null, null, true, process.env.PUBLIC_KEY);
-    console.log(response);
+    // console.log(response);
     res.status(200).send(response.Providers);
   } catch (error) {
     res.status(400).send("An error occured getting providers");
@@ -56,7 +56,7 @@ app.post('/buyairtime', async (req, res) => {
   //iterate through numbers
   for(const numRecord of numList) {
     //send request to paywallet
-    console.log(numRecord);
+    // console.log(numRecord);
     let phoneNumber, code, amount;
    
     try {
@@ -69,7 +69,7 @@ app.post('/buyairtime', async (req, res) => {
       }
 
       const response = await request.post(options).auth(null, null, true, process.env.PUBLIC_KEY);
-      console.log(response);
+      // console.log(response);
 
       // push response into array of responseMesssages
       responseMessages.push({
