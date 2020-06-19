@@ -1,0 +1,40 @@
+{
+  "name": "pay-wallet-credit-transfer",
+  "version": "1.0.0",
+  "description": "An app using PayWallet API to transfer credit to list of numbers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./dist/index.js",
+    "dev": "nodemon --exec babel-node ./src/index.js",
+    "build": "babel src --out-dir dist --delete-dir-on-start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dave-ok/pay-wallet-ui.git"
+  },
+  "keywords": [
+    "paywallet",
+    "credit",
+    "transfer"
+  ],
+  "author": "HNG sub-team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dave-ok/pay-wallet-ui/issues"
+  },
+  "homepage": "https://github.com/dave-ok/pay-wallet-ui#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/node": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "nodemon": "^2.0.4"
+  }
+}
