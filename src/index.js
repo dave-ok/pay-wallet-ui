@@ -35,7 +35,7 @@ app.get("/providers", async (req, res) => {
   
 });
 
-app.post('/sendairtime', (req, res) => {
+app.post('/buyairtime', async (req, res) => {
   //if not array or empty send back erroe
   if(!req.body.numbers || !Array.isArray(req.body.numbers)){
     res.status(400).json({
@@ -45,12 +45,54 @@ app.post('/sendairtime', (req, res) => {
   }
   //get numbers array from request body
   const numList = req.body.numbers;
+  const options = {
+    method: "POST",
+    uri: "https://api.wallets.africa/bills/airtime/purchase",
+    json: true
+  }
+
+  const responseMessages = []; //initialize array for responses
 
   //iterate through numbers
-  numList.forEach(numRecord => {
+  for(const numRecord of numList) {
     //send request to paywallet
+    console.log(numRecord);
+    let phoneNumber, code, amount;
+   
+    try {
+      ({ phoneNumber, code, amount } = numRecord);
+      options.body = {
+        PhoneNumber: phoneNumber,
+        Code: code,
+        Amount: amount,
+        SecretKey: process.env.SECRET_KEY
+      }
+
+      const response = await request.post(options).auth(null, null, true, process.env.PUBLIC_KEY);
+      console.log(response);
+
+      // push response into array of responseMesssages
+      responseMessages.push({
+        phoneNumber,
+        amount,
+        message: response
+      });
+
+      // console.log(responseMessages);
+
+    } catch (error) {
+      responseMessages.push({
+        phoneNumber,
+        amount,
+        error: error.error.Message
+      });
+
+      // console.log(responseMessages);
+    }   
     
-  });
+  };
+
+  res.status(200).json(responseMessages);
 
 });
 
